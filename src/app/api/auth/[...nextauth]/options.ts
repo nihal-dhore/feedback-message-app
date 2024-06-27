@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import UserModel from "@/model/User";
 import { signInSchema } from "@/schemas/signInSchema";
 import dbConnect from "@/lib/dbConnect";
-import { NextAuthOptions, Session } from "next-auth";
+import { NextAuthOptions, Session, User } from "next-auth";
 import { JWT } from "next-auth/jwt";
 
 export const authOptions: NextAuthOptions = {
@@ -61,10 +61,10 @@ export const authOptions: NextAuthOptions = {
     })
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: {token: JWT, user: User}) {
 
       if (user) {
-        token.id = user._id?.toString();
+        token._id = user._id?.toString();
         token.isVerified = user.isVerified;
         token.isAcceptingMessages = user.isAcceptingMessages;
         token.username = user.username;
@@ -72,7 +72,7 @@ export const authOptions: NextAuthOptions = {
 
       return token;
     }
-    , async session({ session, token }) {
+    , async session({ session, token }: {session : Session, token: JWT}) {
       if (token) {
         session.user._id = token._id;
         session.user.isVerified = token.isVerified;
