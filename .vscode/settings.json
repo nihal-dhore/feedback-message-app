@@ -2,5 +2,6 @@
   "prettier.endOfLine": "auto",
   "prettier.trailingComma": "all",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "notebook.defaultFormatter": "esbenp.prettier-vscode"
+  "notebook.defaultFormatter": "esbenp.prettier-vscode",
+  "cSpell.words": ["openai"]
 }
